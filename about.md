@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Info
-permalink: /about/
+permalink: /Info/
 ---
 
 Some information about you!
@@ -12,4 +12,5 @@ A place to include any other types of information that you'd like to include abo
 
 ### Contact 
 
-[jaredrose@skiff.com](mailto:jaredrose@skiff.com)
+Email: [jaredrose@skiff.com](mailto:jaredrose@skiff.com)
+Keybase: jaredrose
