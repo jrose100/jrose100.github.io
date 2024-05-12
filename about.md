@@ -13,4 +13,5 @@ A place to include any other types of information that you'd like to include abo
 ### Contact 
 
 Email: [jaredrose@skiff.com](mailto:jaredrose@skiff.com)
+
 Keybase: jaredrose
