@@ -6,50 +6,68 @@
   <title>Paris Gallery - Jared Rose</title>
   <style>
     body {
-      background: #232526;  /* fallback for old browsers */
-      background: linear-gradient(135deg, #232526, #414345);
-      min-height: 100vh;
-      color: #fff;
-      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #fff;
+      color: #222;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       margin: 0;
       padding: 0;
     }
     .container {
       max-width: 900px;
       margin: 0 auto;
-      padding: 2em;
+      padding: 60px 10px 40px 10px;
     }
     h1 {
-      text-align: center;
-      margin-bottom: 1em;
+      text-align: left;
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 2.5rem;
+      color: #222;
+      letter-spacing: 0.02em;
     }
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5em;
+      display: flex;
+      flex-direction: column;
+      gap: 3.5rem;
     }
     .gallery img {
       width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
-      cursor: pointer;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 0;
+      box-shadow: none;
+      transition: opacity 0.2s;
+      background: #f5f5f5;
     }
     .gallery img:hover {
-      transform: scale(1.04);
+      opacity: 0.92;
     }
     .back-link {
-      display: block;
-      margin-bottom: 2em;
-      color: #00ffe7;
+      display: inline-block;
+      margin-bottom: 2.5rem;
+      color: #4183C4;
       text-decoration: none;
-      font-size: 1.2rem;
-      border-bottom: 1px solid #00ffe7;
-      width: fit-content;
+      font-size: 1.1rem;
+      border-bottom: 1px solid #4183C4;
+      letter-spacing: 0.02em;
     }
     .back-link:hover {
-      color: #fff;
-      border-color: #fff;
+      color: #111;
+      border-color: #111;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 5px 20px 5px;
+      }
+      h1 {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+      }
+      .gallery {
+        gap: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -58,12 +76,16 @@
     <a href="index.html" class="back-link">&larr; Back to Home</a>
     <h1>Paris Gallery</h1>
     <div class="gallery">
-      <!-- Replace the src attributes with your own Paris image URLs or add more images as needed -->
-      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Eiffel Tower">
-      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Paris Street">
-      <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80" alt="Seine River">
-      <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80" alt="Louvre Museum">
+      <!-- Replace these with your own images as needed -->
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80" alt="Eiffel Tower">
+      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80" alt="Paris Street">
+      <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80" alt="Seine River">
+      <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1200&q=80" alt="Louvre Museum">
     </div>
+  </div>
+</body>
+</html>
+
   </div>
 </body>
 </html>
