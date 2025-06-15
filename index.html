@@ -2,6 +2,28 @@
 layout: default
 ---
 
+<style>
+  .paris-link {
+    display: inline-block;
+    margin: 2em 0 2em 0;
+    font-size: 2rem;
+    color: #00ffe7;
+    text-decoration: none;
+    border-bottom: 2px solid #00ffe7;
+    transition: color 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+  .paris-link:hover {
+    color: #fff;
+    border-color: #fff;
+  }
+</style>
+
+<!-- Paris Link -->
+<div style="text-align:center;">
+  <a href="{{ site.baseurl }}/paris.html" class="paris-link">Paris</a>
+</div>
+
 <div class="posts">
   {% for post in site.posts %}
     <article class="post">
