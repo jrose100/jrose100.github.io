@@ -5,28 +5,127 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Galerie</title>
   <style>
+    :root {
+      --bg-color: #fff;
+      --text-color: #222;
+      --shadow-color: rgba(0,0,0,0.09);
+      --shadow-hover: rgba(0,0,0,0.18);
+      --toggle-bg: #e0e0e0;
+      --toggle-thumb: #fff;
+      --toggle-border: #ccc;
+    }
+    
+    [data-theme="dark"] {
+      --bg-color: #1a1a1a;
+      --text-color: #e0e0e0;
+      --shadow-color: rgba(255,255,255,0.1);
+      --shadow-hover: rgba(255,255,255,0.2);
+      --toggle-bg: #333;
+      --toggle-thumb: #f0f0f0;
+      --toggle-border: #555;
+    }
+    
     body {
-      background: #fff;
-      color: #222;
+      background: var(--bg-color);
+      color: var(--text-color);
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       margin: 0;
       padding: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .container {
       max-width: 100%;
       margin: 0;
       padding: 10px 0 0 10px; /* Tight top-left padding */
     }
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
     .back-link {
-      display: inline-block;
-      margin: 0 0 10px 0; /* Spacing below arrow */
-      color: #000; /* Black by default */
+      color: var(--text-color);
       text-decoration: none;
-      font-size: 1.5rem; /* Made bigger */
+      font-size: 1.5rem;
       letter-spacing: 0.02em;
+      transition: color 0.3s ease;
     }
     .back-link:hover {
-      color: #4183C4; /* Blue on hover */
+      color: #4183C4;
+    }
+    
+    /* Theme Toggle Switch */
+    .theme-switch-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .theme-icon {
+      font-size: 14px;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+      color: var(--text-color);
+      font-weight: bold;
+    }
+    
+    .theme-icon.active {
+      opacity: 1;
+      color: #4183C4;
+    }
+    
+    .theme-switch {
+      display: inline-block;
+      height: 20px;
+      position: relative;
+      width: 40px;
+    }
+    
+    .theme-switch input {
+      display: none;
+    }
+    
+    .slider {
+      background-color: #ccc;
+      bottom: 0;
+      cursor: pointer;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: .4s;
+      border-radius: 20px;
+    }
+    
+    .slider:before {
+      background-color: #fff;
+      bottom: 2px;
+      content: "";
+      height: 16px;
+      left: 2px;
+      position: absolute;
+      transition: .4s;
+      width: 16px;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    input:checked + .slider {
+      background-color: #4183C4;
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    
+    /* Dark mode slider styling */
+    [data-theme="dark"] .slider {
+      background-color: #555;
+    }
+    
+    [data-theme="dark"] input:checked + .slider {
+      background-color: #4183C4;
     }
     /* GALLERY: single row layout with uniform height */
     .gallery {
@@ -44,13 +143,13 @@
       object-fit: contain;
       cursor: pointer;
       transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+      box-shadow: 0 2px 12px var(--shadow-color);
       display: block;
     }
     .gallery img:hover {
       opacity: 0.85;
       transform: scale(1.04);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      box-shadow: 0 4px 24px var(--shadow-hover);
     }
     /* Lightbox styles with full-window image and solid background */
     .lightbox {
@@ -227,7 +326,17 @@
 </head>
 <body>
   <div class="container">
-    <a href="/" class="back-link">←</a>
+    <div class="header-container">
+      <a href="/" class="back-link">←</a>
+      <div class="theme-switch-wrapper">
+        <span class="theme-icon sun-icon" id="sun-icon">☀</span>
+        <label class="theme-switch" for="checkbox">
+          <input type="checkbox" id="checkbox" />
+          <div class="slider"></div>
+        </label>
+        <span class="theme-icon moon-icon" id="moon-icon">☾</span>
+      </div>
+    </div>
     <div class="gallery">
       <!-- Your Paris photos -->
       <img src="https://raw.githubusercontent.com/jrose100/jrose100.github.io/09add5e55bdf1acc4709b623b47f5a00e034f655/R0000126.JPG" alt="Paris Photo 1" onclick="openLightbox(0)">
@@ -259,6 +368,40 @@
   <!-- Include exif-js library -->
   <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
   <script>
+    // Theme toggle functionality
+    const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+    const body = document.body;
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+    
+    function updateIcons() {
+      if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        sunIcon.classList.remove('active');
+        moonIcon.classList.add('active');
+      } else {
+        sunIcon.classList.add('active');
+        moonIcon.classList.remove('active');
+      }
+    }
+    
+    // On page load, set theme from localStorage
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggleSwitch.checked = true;
+    }
+    updateIcons();
+    
+    toggleSwitch.addEventListener('change', () => {
+      if (toggleSwitch.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+      updateIcons();
+    });
+
     let currentImageIndex = 0;
     const images = document.querySelectorAll('.gallery img');
     const lightbox = document.getElementById('lightbox');
