@@ -38,20 +38,20 @@
       color: #222;
       letter-spacing: 0.02em;
     }
-    /* GALLERY: grid layout with original aspect ratios */
+    /* GALLERY: horizontal layout with uniform height */
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 22px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 20px;
       padding-bottom: 10px;
     }
     .gallery img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
+      width: auto;
+      height: 150px; /* Uniform height for all images */
+      object-fit: contain;
       cursor: pointer;
       transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-      border-radius: 6px;
       box-shadow: 0 2px 12px rgba(0,0,0,0.09);
       display: block;
     }
@@ -60,7 +60,7 @@
       transform: scale(1.04);
       box-shadow: 0 4px 24px rgba(0,0,0,0.18);
     }
-    /* Lightbox styles with dark background */
+    /* Lightbox styles with full-window image and solid background */
     .lightbox {
       display: none;
       position: fixed;
@@ -69,7 +69,7 @@
       top: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0,0,0,0.92);
+      background: #222; /* Solid dark background to hide original page */
       align-items: center;
       justify-content: center;
     }
@@ -149,22 +149,18 @@
     }
     .lightbox-content {
       position: relative;
-      max-width: 90vw;
-      max-height: 90vh;
+      width: 100vw;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .lightbox img {
-      max-width: 90vw;
-      max-height: 90vh;
-      width: auto;
-      height: auto;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       box-shadow: 0 0 32px rgba(0,0,0,0.4);
       display: block;
-      background: #222;
-      border-radius: 4px;
     }
     .close {
       position: fixed;
@@ -199,7 +195,10 @@
         margin-bottom: 2rem;
       }
       .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+      }
+      .gallery img {
+        height: 120px; /* Adjusted for smaller screens */
       }
       .lightbox-nav {
         top: 55px;
@@ -264,6 +263,8 @@
       <img id="lightbox-img" src="" alt="">
     </div>
   </div>
+  <!-- Include exif-js library -->
+  <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
   <script>
     let currentImageIndex = 0;
     const images = document.querySelectorAll('.gallery img');
@@ -274,54 +275,33 @@
     const nextBtn = document.getElementById('nextBtn');
     const metadataTooltip = document.getElementById('metadataTooltip');
 
-    // Sample metadata for your images (date removed)
-    const imageMetadata = [
-      {
-        camera: "Ricoh GR III",
-        lens: "18.3mm f/2.8",
-        settings: "1/60s, f/5.6, ISO 400",
-        size: "6000 × 4000",
-        fileSize: "4.2 MB"
-      },
-      {
-        camera: "Ricoh GR III",
-        lens: "18.3mm f/2.8", 
-        settings: "1/125s, f/4.0, ISO 200",
-        size: "6000 × 4000",
-        fileSize: "3.8 MB"
-      },
-      {
-        camera: "Ricoh GR III",
-        lens: "18.3mm f/2.8",
-        settings: "1/250s, f/2.8, ISO 100", 
-        size: "6000 × 4000",
-        fileSize: "5.1 MB"
-      },
-      {
-        camera: "Ricoh GR III",
-        lens: "18.3mm f/2.8",
-        settings: "1/125s, f/4.5, ISO 320", 
-        size: "6000 × 4000",
-        fileSize: "4.7 MB"
-      },
-      {
-        camera: "Ricoh GR III",
-        lens: "18.3mm f/2.8",
-        settings: "1/80s, f/3.2, ISO 250", 
-        size: "6000 × 4000",
-        fileSize: "4.5 MB"
-      }
-    ];
+    // Function to extract EXIF data
+    function getExifData(imgSrc, callback) {
+      const img = new Image();
+      img.crossOrigin = "Anonymous"; // Attempt to handle CORS
+      img.onload = function() {
+        EXIF.getData(img, function() {
+          const exifData = EXIF.getAllTags(this);
+          let metadata = "No EXIF data available";
+          if (exifData && Object.keys(exifData).length > 0) {
+            metadata = `
+              <strong>Camera: ${exifData.Model || 'Unknown'}</strong><br>
+              Lens: ${exifData.LensModel || 'Unknown'}<br>
+              Settings: ${exifData.ExposureTime || 'N/A'}s, f/${exifData.FNumber || 'N/A'}, ISO ${exifData.ISO || 'N/A'}<br>
+              Size: ${img.width} × ${img.height}<br>
+            `;
+          }
+          callback(metadata);
+        });
+      };
+      img.src = imgSrc + "?t=" + new Date().getTime(); // Add timestamp to bypass cache
+    }
 
     function updateMetadata() {
-      const metadata = imageMetadata[currentImageIndex];
-      metadataTooltip.innerHTML = `
-        <strong>${metadata.camera}</strong><br>
-        ${metadata.lens}<br>
-        ${metadata.settings}<br>
-        ${metadata.size}<br>
-        ${metadata.fileSize}
-      `;
+      const imgSrc = images[currentImageIndex].src;
+      getExifData(imgSrc, function(metadata) {
+        metadataTooltip.innerHTML = metadata;
+      });
     }
 
     function updateCounter() {
