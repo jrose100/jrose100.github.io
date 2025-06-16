@@ -13,8 +13,6 @@
         --bg-color: #fff;
         --text-color: #222;
         --accent-color: #4183C4;
-        --pink-accent: #e91e63;
-        --pink-hover: #f06292;
       }
       body {
         background: var(--bg-color);
@@ -24,8 +22,6 @@
       body.dark-mode {
         --bg-color: #181818;
         --text-color: #fff !important;
-        --pink-accent: #ff4081;
-        --pink-hover: #ff6ec7;
       }
       
       body.dark-mode * {
@@ -50,7 +46,7 @@
       
       .theme-icon.active {
         opacity: 1;
-        color: var(--pink-accent);
+        color: var(--accent-color);
       }
       
       /* Dark mode icon styling */
@@ -113,7 +109,7 @@
       }
       
       input:checked + .slider {
-        background-color: var(--pink-accent);
+        background-color: var(--accent-color);
       }
       
       input:checked + .slider:before {
@@ -126,21 +122,17 @@
       }
       
       body.dark-mode input:checked + .slider {
-        background-color: var(--pink-accent);
+        background-color: var(--accent-color);
       }
       
-      /* Pink accents for links and interactive elements */
+      /* Link styling */
       a {
         color: var(--accent-color);
         transition: color 0.2s;
       }
       
       a:hover {
-        color: var(--pink-accent);
-      }
-      
-      .site-name a:hover {
-        color: var(--pink-hover) !important;
+        color: var(--accent-color);
       }
       
       body.dark-mode a {
@@ -148,7 +140,7 @@
       }
       
       body.dark-mode a:hover {
-        color: var(--pink-accent) !important;
+        color: var(--accent-color) !important;
       }
     </style>
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
