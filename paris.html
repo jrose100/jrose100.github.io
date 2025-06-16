@@ -38,25 +38,20 @@
       color: #222;
       letter-spacing: 0.02em;
     }
-    /* GALLERY: horizontal scroll row */
+    /* GALLERY: horizontal layout with original aspect ratios */
     .gallery {
       display: flex;
       flex-direction: row;
-      gap: 22px;
-      overflow-x: auto;
+      flex-wrap: wrap;
+      gap: 20px;
       padding-bottom: 10px;
-      scroll-snap-type: x mandatory;
     }
     .gallery img {
-      flex: 0 0 auto;
-      width: 260px;
-      height: 260px;
-      object-fit: cover;
-      scroll-snap-align: start;
-      background: #f5f5f5;
+      width: auto;
+      height: 150px; /* Smaller scale while preserving aspect ratio */
+      object-fit: contain;
       cursor: pointer;
       transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-      border-radius: 6px;
       box-shadow: 0 2px 12px rgba(0,0,0,0.09);
       display: block;
     }
@@ -65,7 +60,7 @@
       transform: scale(1.04);
       box-shadow: 0 4px 24px rgba(0,0,0,0.18);
     }
-    /* Lightbox styles */
+    /* Lightbox styles with full-window image and solid background */
     .lightbox {
       display: none;
       position: fixed;
@@ -74,7 +69,7 @@
       top: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0,0,0,0.92);
+      background: #222; /* Solid dark background to hide original page */
       align-items: center;
       justify-content: center;
     }
@@ -154,22 +149,18 @@
     }
     .lightbox-content {
       position: relative;
-      max-width: 90vw;
-      max-height: 90vh;
+      width: 100vw;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .lightbox img {
-      max-width: 90vw;
-      max-height: 90vh;
-      width: auto;
-      height: auto;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       box-shadow: 0 0 32px rgba(0,0,0,0.4);
       display: block;
-      background: #222;
-      border-radius: 4px;
     }
     .close {
       position: fixed;
@@ -203,9 +194,11 @@
         font-size: 1.8rem;
         margin-bottom: 2rem;
       }
+      .gallery {
+        gap: 15px;
+      }
       .gallery img {
-        width: 160px;
-        height: 160px;
+        height: 120px; /* Adjusted for smaller screens */
       }
       .lightbox-nav {
         top: 55px;
@@ -394,4 +387,3 @@
   </script>
 </body>
 </html>
-
