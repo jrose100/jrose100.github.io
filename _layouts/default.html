@@ -26,18 +26,60 @@
         --bg-color: #181818;
         --text-color: #fff;
       }
-      /* Optional: style the toggle button */
-      #theme-toggle {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 1.5rem;
+
+      /* Switch Styles */
+      .theme-switch {
+        display: inline-block;
+        vertical-align: middle;
         margin-left: 1em;
-        color: inherit;
-        transition: color 0.2s;
+        cursor: pointer;
       }
-      #theme-toggle:hover {
-        color: #4183C4;
+      .theme-switch input {
+        display: none;
+      }
+      .theme-switch .slider {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        background: #ccc;
+        border-radius: 34px;
+        display: inline-block;
+        transition: background 0.3s;
+      }
+      .theme-switch .slider:before {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        width: 16px;
+        height: 16px;
+        background: #fff;
+        border-radius: 50%;
+        transition: transform 0.3s, background 0.3s;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      }
+      .theme-switch input:checked + .slider {
+        background: #333;
+      }
+      .theme-switch input:checked + .slider:before {
+        transform: translateX(20px);
+        background: #f5f5f5;
+      }
+      /* Optional: add sun/moon icons inside the slider */
+      .theme-switch .slider:after {
+        content: "🌞";
+        position: absolute;
+        right: 6px;
+        top: 3px;
+        font-size: 1rem;
+        transition: opacity 0.3s;
+        opacity: 1;
+      }
+      .theme-switch input:checked + .slider:after {
+        content: "🌙";
+        left: 6px;
+        right: auto;
+        opacity: 1;
       }
     </style>
 
@@ -45,57 +87,6 @@
   </head>
 
   <body>
-    <div class="wrapper-masthead">
-      <div class="container">
-        <header class="masthead clearfix">
-          <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
+    <div class
 
-          <div class="site-info">
-            <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
-          </div>
-
-          <nav>
-            <a href="{{ site.baseurl }}/contact">Contact</a>
-            <!-- Light/Dark Mode Toggle Button -->
-            <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌓</button>
-          </nav>
-        </header>
-      </div>
-    </div>
-
-    <div id="main" role="main" class="container">
-      {{ content }}
-    </div>
-
-    <div class="wrapper-footer">
-      <div class="container">
-        <footer class="footer">
-          {% include svg-icons.html %}
-        </footer>
-      </div>
-    </div>
-
-    {% include analytics.html %}
-
-    <!-- Light/Dark Mode Toggle Script -->
-    <script>
-      const toggle = document.getElementById('theme-toggle');
-      const body = document.body;
-
-      // On page load, set theme from localStorage
-      if (localStorage.getItem('theme') === 'dark') {
-        body.classList.add('dark-mode');
-      }
-
-      toggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        if (body.classList.contains('dark-mode')) {
-          localStorage.setItem('theme', 'dark');
-        } else {
-          localStorage.setItem('theme', 'light');
-        }
-      });
-    </script>
-  </body>
-</html>
 
