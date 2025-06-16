@@ -13,15 +13,15 @@
       padding: 0;
     }
     .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 60px 10px 40px 10px;
+      max-width: 100%;
+      margin: 0;
+      padding: 10px 0 0 10px; /* Tight top-left padding */
     }
     .back-link {
       display: inline-block;
-      margin-bottom: 2.5rem;
+      margin: 0 5px 0 0; /* Close spacing to title */
       color: #000; /* Black by default */
-      text-decoration: none; /* Remove underline */
+      text-decoration: none;
       font-size: 1.1rem;
       letter-spacing: 0.02em;
     }
@@ -29,20 +29,22 @@
       color: #4183C4; /* Blue on hover */
     }
     h1 {
-      text-align: left;
+      display: inline-block;
+      margin: 0 0 10px 0; /* Tight spacing below */
       font-size: 2rem;
       font-weight: bold;
-      margin-bottom: 2.5rem;
       color: #222;
       letter-spacing: 0.02em;
     }
-    /* GALLERY: horizontal layout with uniform height */
+    /* GALLERY: single row layout with uniform height */
     .gallery {
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding-bottom: 10px;
+      flex-wrap: nowrap; /* Single row */
+      gap: 10px;
+      padding: 0;
+      overflow-x: auto; /* Horizontal scroll for small screens */
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
     }
     .gallery img {
       width: auto;
@@ -186,14 +188,14 @@
     }
     @media (max-width: 768px) {
       .container {
-        padding: 40px 15px 30px 15px;
+        padding: 5px 0 0 5px; /* Tighter padding on small screens */
       }
       h1 {
         font-size: 1.8rem;
-        margin-bottom: 2rem;
+        margin-bottom: 5px;
       }
       .gallery {
-        gap: 15px;
+        gap: 5px;
       }
       .gallery img {
         height: 120px; /* Adjusted for smaller screens */
@@ -236,7 +238,7 @@
     <a href="/" class="back-link">←</a>
     <h1>Paris</h1>
     <div class="gallery">
-      <!-- Your original Paris photos plus new ones -->
+      <!-- Your Paris photos -->
       <img src="https://raw.githubusercontent.com/jrose100/jrose100.github.io/09add5e55bdf1acc4709b623b47f5a00e034f655/R0000126.JPG" alt="Paris Photo 1" onclick="openLightbox(0)">
       <img src="https://raw.githubusercontent.com/jrose100/jrose100.github.io/09add5e55bdf1acc4709b623b47f5a00e034f655/images/R0000125.JPG" alt="Paris Photo 2" onclick="openLightbox(1)">
       <img src="https://raw.githubusercontent.com/jrose100/jrose100.github.io/09add5e55bdf1acc4709b623b47f5a00e034f655/images/R0000067.JPG" alt="Paris Photo 3" onclick="openLightbox(2)">
