@@ -4,6 +4,9 @@
 
 # Name of your site (displayed in the header)
 name: Jared Rose
+<button id="theme-toggle" aria-label="Toggle dark mode" style="background:none;border:none;cursor:pointer;font-size:1.5rem;">
+  🌓
+</button>
 
 # Short bio or description (displayed in the header)
 description: 
