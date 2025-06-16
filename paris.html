@@ -90,7 +90,7 @@
     .info-button {
       width: 16px;
       height: 16px;
-      background: #ff6b35;
+      background: #666;
       cursor: pointer;
       position: relative;
       opacity: 0.9;
@@ -283,13 +283,12 @@
     const nextBtn = document.getElementById('nextBtn');
     const metadataTooltip = document.getElementById('metadataTooltip');
 
-    // Sample metadata for your images (you can replace with actual EXIF data)
+    // Sample metadata for your images (date removed)
     const imageMetadata = [
       {
         camera: "Ricoh GR III",
         lens: "18.3mm f/2.8",
         settings: "1/60s, f/5.6, ISO 400",
-        date: "2024-03-15 14:23:07",
         size: "6000 × 4000",
         fileSize: "4.2 MB"
       },
@@ -297,7 +296,6 @@
         camera: "Ricoh GR III",
         lens: "18.3mm f/2.8", 
         settings: "1/125s, f/4.0, ISO 200",
-        date: "2024-03-15 14:20:15",
         size: "6000 × 4000",
         fileSize: "3.8 MB"
       },
@@ -305,7 +303,6 @@
         camera: "Ricoh GR III",
         lens: "18.3mm f/2.8",
         settings: "1/250s, f/2.8, ISO 100", 
-        date: "2024-03-14 16:45:22",
         size: "6000 × 4000",
         fileSize: "5.1 MB"
       }
@@ -317,7 +314,6 @@
         <strong>${metadata.camera}</strong><br>
         ${metadata.lens}<br>
         ${metadata.settings}<br>
-        ${metadata.date}<br>
         ${metadata.size}<br>
         ${metadata.fileSize}
       `;
