@@ -38,20 +38,20 @@
       color: #222;
       letter-spacing: 0.02em;
     }
-    /* GALLERY: horizontal layout with original aspect ratios */
+    /* GALLERY: grid layout with original aspect ratios */
     .gallery {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 22px;
       padding-bottom: 10px;
     }
     .gallery img {
-      width: auto;
-      height: 150px; /* Smaller scale while preserving aspect ratio */
-      object-fit: contain;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
       cursor: pointer;
       transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      border-radius: 6px;
       box-shadow: 0 2px 12px rgba(0,0,0,0.09);
       display: block;
     }
@@ -60,7 +60,7 @@
       transform: scale(1.04);
       box-shadow: 0 4px 24px rgba(0,0,0,0.18);
     }
-    /* Lightbox styles with full-window image and solid background */
+    /* Lightbox styles with dark background */
     .lightbox {
       display: none;
       position: fixed;
@@ -69,7 +69,7 @@
       top: 0;
       width: 100vw;
       height: 100vh;
-      background: #222; /* Solid dark background to hide original page */
+      background: rgba(0,0,0,0.92);
       align-items: center;
       justify-content: center;
     }
@@ -149,18 +149,22 @@
     }
     .lightbox-content {
       position: relative;
-      width: 100vw;
-      height: 100vh;
+      max-width: 90vw;
+      max-height: 90vh;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .lightbox img {
-      width: 100%;
-      height: 100%;
+      max-width: 90vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
       object-fit: contain;
       box-shadow: 0 0 32px rgba(0,0,0,0.4);
       display: block;
+      background: #222;
+      border-radius: 4px;
     }
     .close {
       position: fixed;
@@ -195,10 +199,7 @@
         margin-bottom: 2rem;
       }
       .gallery {
-        gap: 15px;
-      }
-      .gallery img {
-        height: 120px; /* Adjusted for smaller screens */
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       }
       .lightbox-nav {
         top: 55px;
