@@ -28,6 +28,17 @@
         display: flex;
         align-items: center;
         margin-left: 1em;
+        gap: 8px;
+      }
+      
+      .theme-icon {
+        font-size: 16px;
+        opacity: 0.6;
+        transition: opacity 0.3s;
+      }
+      
+      .theme-icon.active {
+        opacity: 1;
       }
       
       .theme-switch {
@@ -63,6 +74,7 @@
         transition: .4s;
         width: 16px;
         border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       }
       
       input:checked + .slider {
@@ -96,10 +108,12 @@
             <a href="{{ site.baseurl }}/contact">Contact</a>
             <!-- Light/Dark Mode Toggle Switch -->
             <div class="theme-switch-wrapper">
+              <span class="theme-icon sun-icon" id="sun-icon">☀️</span>
               <label class="theme-switch" for="checkbox">
                 <input type="checkbox" id="checkbox" />
                 <div class="slider"></div>
               </label>
+              <span class="theme-icon moon-icon" id="moon-icon">🌙</span>
             </div>
           </nav>
         </header>
@@ -120,12 +134,25 @@
     <script>
       const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
       const body = document.body;
+      const sunIcon = document.getElementById('sun-icon');
+      const moonIcon = document.getElementById('moon-icon');
+      
+      function updateIcons() {
+        if (body.classList.contains('dark-mode')) {
+          sunIcon.classList.remove('active');
+          moonIcon.classList.add('active');
+        } else {
+          sunIcon.classList.add('active');
+          moonIcon.classList.remove('active');
+        }
+      }
       
       // On page load, set theme from localStorage
       if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-mode');
         toggleSwitch.checked = true;
       }
+      updateIcons();
       
       toggleSwitch.addEventListener('change', () => {
         if (toggleSwitch.checked) {
@@ -135,9 +162,9 @@
           body.classList.remove('dark-mode');
           localStorage.setItem('theme', 'light');
         }
+        updateIcons();
       });
     </script>
   </body>
 </html>
-
 
