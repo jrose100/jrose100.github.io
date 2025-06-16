@@ -20,7 +20,11 @@
       }
       body.dark-mode {
         --bg-color: #181818;
-        --text-color: #fff;
+        --text-color: #fff !important;
+      }
+      
+      body.dark-mode * {
+        color: #fff !important;
       }
       
       /* Toggle Switch Styles */
@@ -32,13 +36,20 @@
       }
       
       .theme-icon {
-        font-size: 16px;
-        opacity: 0.6;
+        font-size: 14px;
+        opacity: 0.5;
         transition: opacity 0.3s;
+        color: #000;
+        font-weight: bold;
       }
       
       .theme-icon.active {
         opacity: 1;
+      }
+      
+      /* Dark mode icon styling */
+      body.dark-mode .theme-icon {
+        color: #fff;
       }
       
       .theme-switch {
@@ -108,12 +119,12 @@
             <a href="{{ site.baseurl }}/contact">Contact</a>
             <!-- Light/Dark Mode Toggle Switch -->
             <div class="theme-switch-wrapper">
-              <span class="theme-icon sun-icon" id="sun-icon">☀️</span>
+              <span class="theme-icon sun-icon" id="sun-icon">☀</span>
               <label class="theme-switch" for="checkbox">
                 <input type="checkbox" id="checkbox" />
                 <div class="slider"></div>
               </label>
-              <span class="theme-icon moon-icon" id="moon-icon">🌙</span>
+              <span class="theme-icon moon-icon" id="moon-icon">☾</span>
             </div>
           </nav>
         </header>
