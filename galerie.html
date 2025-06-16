@@ -19,22 +19,14 @@
     }
     .back-link {
       display: inline-block;
-      margin: 0 5px 0 0; /* Close spacing to title */
+      margin: 0 0 10px 0; /* Spacing below arrow */
       color: #000; /* Black by default */
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 1.5rem; /* Made bigger */
       letter-spacing: 0.02em;
     }
     .back-link:hover {
       color: #4183C4; /* Blue on hover */
-    }
-    h1 {
-      display: inline-block;
-      margin: 0 0 10px 0; /* Tight spacing below */
-      font-size: 2rem;
-      font-weight: bold;
-      color: #222;
-      letter-spacing: 0.02em;
     }
     /* GALLERY: single row layout with uniform height */
     .gallery {
@@ -190,8 +182,8 @@
       .container {
         padding: 5px 0 0 5px; /* Tighter padding on small screens */
       }
-      h1 {
-        font-size: 1.8rem;
+      .back-link {
+        font-size: 1.3rem; /* Slightly smaller on mobile but still bigger than original */
         margin-bottom: 5px;
       }
       .gallery {
@@ -236,7 +228,6 @@
 <body>
   <div class="container">
     <a href="/" class="back-link">←</a>
-    <h1>Paris</h1>
     <div class="gallery">
       <!-- Your Paris photos -->
       <img src="https://raw.githubusercontent.com/jrose100/jrose100.github.io/09add5e55bdf1acc4709b623b47f5a00e034f655/R0000126.JPG" alt="Paris Photo 1" onclick="openLightbox(0)">
