@@ -2,16 +2,12 @@
 <html>
   <head>
     <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{ site.description }}</title>
-
     {% include meta.html %}
-
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
-
     <style>
       :root {
         --bg-color: #fff;
@@ -26,47 +22,92 @@
         --bg-color: #181818;
         --text-color: #fff;
       }
-      /* Optional: style the toggle button */
-      #theme-toggle {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 1.5rem;
+      
+      /* Toggle Switch Styles */
+      .theme-switch-wrapper {
+        display: flex;
+        align-items: center;
         margin-left: 1em;
-        color: inherit;
-        transition: color 0.2s;
       }
-      #theme-toggle:hover {
-        color: #4183C4;
+      
+      .theme-switch {
+        display: inline-block;
+        height: 20px;
+        position: relative;
+        width: 40px;
+      }
+      
+      .theme-switch input {
+        display: none;
+      }
+      
+      .slider {
+        background-color: #ccc;
+        bottom: 0;
+        cursor: pointer;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: .4s;
+        border-radius: 20px;
+      }
+      
+      .slider:before {
+        background-color: #fff;
+        bottom: 2px;
+        content: "";
+        height: 16px;
+        left: 2px;
+        position: absolute;
+        transition: .4s;
+        width: 16px;
+        border-radius: 50%;
+      }
+      
+      input:checked + .slider {
+        background-color: #4183C4;
+      }
+      
+      input:checked + .slider:before {
+        transform: translateX(20px);
+      }
+      
+      /* Dark mode slider styling */
+      body.dark-mode .slider {
+        background-color: #555;
+      }
+      
+      body.dark-mode input:checked + .slider {
+        background-color: #4183C4;
       }
     </style>
-
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
   </head>
-
   <body>
     <div class="wrapper-masthead">
       <div class="container">
         <header class="masthead clearfix">
           <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
-
           <div class="site-info">
             <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
           </div>
-
           <nav>
             <a href="{{ site.baseurl }}/contact">Contact</a>
-            <!-- Light/Dark Mode Toggle Button -->
-            <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌓</button>
+            <!-- Light/Dark Mode Toggle Switch -->
+            <div class="theme-switch-wrapper">
+              <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider"></div>
+              </label>
+            </div>
           </nav>
         </header>
       </div>
     </div>
-
     <div id="main" role="main" class="container">
       {{ content }}
     </div>
-
     <div class="wrapper-footer">
       <div class="container">
         <footer class="footer">
@@ -74,30 +115,29 @@
         </footer>
       </div>
     </div>
-
     {% include analytics.html %}
-
     <!-- Light/Dark Mode Toggle Script -->
     <script>
-      const toggle = document.getElementById('theme-toggle');
+      const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
       const body = document.body;
-
+      
       // On page load, set theme from localStorage
       if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-mode');
+        toggleSwitch.checked = true;
       }
-
-      toggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        if (body.classList.contains('dark-mode')) {
+      
+      toggleSwitch.addEventListener('change', () => {
+        if (toggleSwitch.checked) {
+          body.classList.add('dark-mode');
           localStorage.setItem('theme', 'dark');
         } else {
+          body.classList.remove('dark-mode');
           localStorage.setItem('theme', 'light');
         }
       });
     </script>
   </body>
 </html>
-
 
 
