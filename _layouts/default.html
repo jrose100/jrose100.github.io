@@ -31,7 +31,7 @@
       .theme-switch-wrapper {
         display: flex;
         align-items: center;
-        margin-left: 1em;
+        margin-top: 8px;
         gap: 8px;
       }
       
@@ -50,6 +50,24 @@
       /* Dark mode icon styling */
       body.dark-mode .theme-icon {
         color: #fff;
+      }
+      
+      /* Contact link styling */
+      .contact-link {
+        display: inline-block;
+        margin-top: 5px;
+        color: #4183C4;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      
+      .contact-link:hover {
+        text-decoration: underline;
+      }
+      
+      body.dark-mode .contact-link {
+        color: #4183C4 !important;
       }
       
       .theme-switch {
@@ -114,8 +132,7 @@
           <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
           <div class="site-info">
             <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
-          </div>
-          <nav>
+            <p class="site-description">{{ site.description }}</p>
             <!-- Light/Dark Mode Toggle Switch -->
             <div class="theme-switch-wrapper">
               <span class="theme-icon sun-icon" id="sun-icon">☀</span>
@@ -125,6 +142,9 @@
               </label>
               <span class="theme-icon moon-icon" id="moon-icon">☾</span>
             </div>
+          </div>
+          <nav>
+            <a href="{{ site.baseurl }}/contact">Contact</a>
           </nav>
         </header>
       </div>
