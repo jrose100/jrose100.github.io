@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{ site.description }}</title>
-
     {% include meta.html %}
 
     <!--[if lt IE 9]>
@@ -26,8 +25,6 @@
         --bg-color: #181818;
         --text-color: #fff;
       }
-
-      /* Switch Styles */
       .theme-switch {
         display: inline-block;
         vertical-align: middle;
@@ -51,42 +48,5 @@
         position: absolute;
         left: 4px;
         top: 4px;
-        width: 16px;
-        height: 16px;
-        background: #fff;
-        border-radius: 50%;
-        transition: transform 0.3s, background 0.3s;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-      }
-      .theme-switch input:checked + .slider {
-        background: #333;
-      }
-      .theme-switch input:checked + .slider:before {
-        transform: translateX(20px);
-        background: #f5f5f5;
-      }
-      /* Optional: add sun/moon icons inside the slider */
-      .theme-switch .slider:after {
-        content: "🌞";
-        position: absolute;
-        right: 6px;
-        top: 3px;
-        font-size: 1rem;
-        transition: opacity 0.3s;
-        opacity: 1;
-      }
-      .theme-switch input:checked + .slider:after {
-        content: "🌙";
-        left: 6px;
-        right: auto;
-        opacity: 1;
-      }
-    </style>
-
-    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
-  </head>
-
-  <body>
-    <div class
 
 
