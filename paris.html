@@ -38,23 +38,33 @@
       color: #222;
       letter-spacing: 0.02em;
     }
+    /* GALLERY: horizontal scroll row */
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      display: flex;
+      flex-direction: row;
       gap: 22px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scroll-snap-type: x mandatory;
     }
     .gallery img {
-      width: 100%;
-      height: auto;
-      display: block;
+      flex: 0 0 auto;
+      width: 260px;
+      height: 260px;
+      object-fit: cover;
+      scroll-snap-align: start;
       background: #f5f5f5;
       cursor: pointer;
-      transition: opacity 0.2s;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      border-radius: 6px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+      display: block;
     }
     .gallery img:hover {
       opacity: 0.85;
+      transform: scale(1.04);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
     }
-    
     /* Lightbox styles */
     .lightbox {
       display: none;
@@ -68,11 +78,9 @@
       align-items: center;
       justify-content: center;
     }
-    
     .lightbox.active {
       display: flex;
     }
-    
     .lightbox-nav {
       position: fixed;
       top: 60px;
@@ -86,7 +94,6 @@
       padding: 8px 6px;
       backdrop-filter: blur(5px);
     }
-    
     .info-button {
       width: 16px;
       height: 16px;
@@ -96,11 +103,9 @@
       opacity: 0.9;
       transition: opacity 0.2s;
     }
-    
     .info-button:hover {
       opacity: 1;
     }
-    
     .metadata-tooltip {
       position: absolute;
       bottom: 100%;
@@ -118,12 +123,10 @@
       backdrop-filter: blur(5px);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    
     .info-button:hover .metadata-tooltip {
       opacity: 1;
       pointer-events: auto;
     }
-    
     .nav-arrow {
       color: white;
       font-size: 14px;
@@ -134,16 +137,13 @@
       opacity: 0.9;
       transition: opacity 0.2s;
     }
-    
     .nav-arrow:hover {
       opacity: 1;
     }
-    
     .nav-arrow:disabled {
       opacity: 0.3;
       cursor: not-allowed;
     }
-    
     .image-counter {
       color: white;
       font-size: 12px;
@@ -152,7 +152,6 @@
       opacity: 0.9;
       text-align: center;
     }
-    
     .lightbox-content {
       position: relative;
       max-width: 90vw;
@@ -161,14 +160,17 @@
       align-items: center;
       justify-content: center;
     }
-    
     .lightbox img {
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 90vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
       box-shadow: 0 0 32px rgba(0,0,0,0.4);
       display: block;
+      background: #222;
+      border-radius: 4px;
     }
-    
     .close {
       position: fixed;
       top: 12px;
@@ -190,11 +192,9 @@
       justify-content: center;
       backdrop-filter: blur(5px);
     }
-    
     .close:hover {
       opacity: 1;
     }
-    
     @media (max-width: 768px) {
       .container {
         padding: 40px 15px 30px 15px;
@@ -203,9 +203,9 @@
         font-size: 1.8rem;
         margin-bottom: 2rem;
       }
-      .gallery {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
+      .gallery img {
+        width: 160px;
+        height: 160px;
       }
       .lightbox-nav {
         top: 55px;
@@ -228,12 +228,10 @@
       .image-counter {
         font-size: 11px;
       }
-      
       .info-button {
         width: 14px;
         height: 14px;
       }
-      
       .metadata-tooltip {
         font-size: 10px;
         padding: 10px;
@@ -246,7 +244,6 @@
   <div class="container">
     <a href="/" class="back-link">← Back</a>
     <h1>Paris</h1>
-    
     <div class="gallery">
       <!-- Your actual Paris photos -->
       <img src="https://raw.githubusercontent.com/jrose100/jrose100.github.io/09add5e55bdf1acc4709b623b47f5a00e034f655/R0000126.JPG" alt="Paris Photo 1" onclick="openLightbox(0)">
@@ -256,7 +253,6 @@
       <img src="https://raw.githubusercontent.com/jrose100/jrose100.github.io/0ed73241d9d850d3ba4085adca1cd915afbeb17c/images/R0000119.JPG" alt="Paris Photo 5" onclick="openLightbox(4)">
     </div>
   </div>
-
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
     <div class="lightbox-nav">
@@ -274,7 +270,6 @@
       <img id="lightbox-img" src="" alt="">
     </div>
   </div>
-
   <script>
     let currentImageIndex = 0;
     const images = document.querySelectorAll('.gallery img');
@@ -337,12 +332,8 @@
 
     function updateCounter() {
       imageCounter.textContent = `${currentImageIndex + 1} / ${images.length}`;
-      
-      // Disable buttons at boundaries
       prevBtn.disabled = currentImageIndex === 0;
       nextBtn.disabled = currentImageIndex === images.length - 1;
-      
-      // Update metadata
       updateMetadata();
     }
 
@@ -403,3 +394,4 @@
   </script>
 </body>
 </html>
+
